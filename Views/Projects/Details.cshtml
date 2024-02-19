@@ -1,0 +1,32 @@
+﻿@model Project
+
+@{
+    //Razor Block
+    ViewData["Title"] = "Projects Details";
+}
+<h2>Project Details</h2>
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Name</h3>
+        <p class="card-text">@Model.Description</p>
+        <dl class="row">
+            <dt class="col-sm-3">Project Id</dt>
+            <dd class="col-sm-9">@Model.ProjectId</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">Project Start Date</dt>
+            <dd class="col-sm-9">@Model.StartDate</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">Project End Date</dt>
+            <dd class="col-sm-9">@Model.EndDate</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">Project Status</dt>
+            <dd class="col-sm-9">@Model.Status</dd>
+        </dl>
+        <a asp-controller="Tasks" asp-action="Index" asp-route-id="@Model.ProjectId" class="btn btn-primary">View Tasks</a>
+        <a asp-controller="Projects" asp-action="Edit" asp-route-id="@Model.ProjectId" class="btn btn-primary">Edit</a>
+        <a asp-controller="Projects" asp-action="Index" class="btn btn-secondary">Back to List</a>
+     </div>      
+</div>

@@ -1,0 +1,37 @@
+﻿@model List<Project>
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h2>Projects</h2>
+
+@if(Model.Any()){
+    <table class="table">
+        <thread>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Description</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thread>
+        
+        @foreach(var project in Model) {
+            <tbody>
+                <tr>
+                    <td>@project.ProjectId</td>
+                    <td>
+                        <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.ProjectId">@project.Name</a>
+                    </td>
+                    <td>@project.Description</td>
+                    <td><a asp-controller="Tasks" asp-action="Index" asp-route-id="@project.ProjectId" class="btn btn-primary">View Tasks</a></td>
+                    <td><a asp-controller="Projects" asp-action="Delete" asp-route-id="@project.ProjectId" class="btn btn-primary">Delete</a></td>
+                </tr>
+            </tbody>
+        }
+        
+    </table>
+}else{
+    <p>No projects found</p>
+}

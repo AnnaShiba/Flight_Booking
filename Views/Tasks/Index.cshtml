@@ -1,0 +1,40 @@
+﻿@model List<ProjectTask>
+@{
+    ViewData["Title"] = "Project Tasks";
+}
+
+<h2>Tasks</h2>
+
+@if (Model.Any()) {
+    <table class="table">
+        <thread>
+            <tr>
+                <td>ID</td>
+                <td>Title</td>
+                <td>Description</td>
+                <td></td>
+            </tr>
+        </thread>
+
+        @foreach (var projectTask in Model) {
+            <tbody>
+                <tr>
+                    <td>@projectTask.ProjectTaskId</td>
+                    <td>
+                        <a asp-controller="Tasks" asp-action="Details" asp-route-id="@projectTask.ProjectTaskId">@projectTask.Title</a>
+                    </td>
+                    <td>@projectTask.Description</td>
+                    <td><a asp-controller="Tasks" asp-action="Delete" asp-route-id="@projectTask.ProjectTaskId" class="btn btn-primary">Delete</a></td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+}
+else {
+    <p>No project tasks found</p>
+}
+<div class="card-body">
+    <a asp-controller="Tasks" asp-action="Create" asp-route-id="@ViewBag.ProjectId" class="btn btn-primary">Create New Task</a>
+    <a asp-controller="Projects" asp-action="Index" class="btn btn-secondary">Back to Projects</a>
+</div>

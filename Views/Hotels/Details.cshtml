@@ -1,8 +1,8 @@
-﻿@model Project
+﻿@model Hotel
 
 @{
     //Razor Block
-    ViewData["Title"] = "Projects Details";
+    ViewData["Title"] = "Hotels Details";
 }
 <h2>Project Details</h2>
 <div class="card">
@@ -25,8 +25,8 @@
             <dt class="col-sm-3">Project Status</dt>
             <dd class="col-sm-9">@Model.Status</dd>
         </dl>
-        <a asp-controller="Tasks" asp-action="Index" asp-route-id="@Model.ProjectId" class="btn btn-primary">View Tasks</a>
-        <a asp-controller="Projects" asp-action="Edit" asp-route-id="@Model.ProjectId" class="btn btn-primary">Edit</a>
-        <a asp-controller="Projects" asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-controller="Bookings" asp-action="Index" asp-route-id="@Model.HotelId" class="btn btn-primary">View Tasks</a>
+        <a asp-controller="Hotels" asp-action="Edit" asp-route-id="@Model.HotelId" class="btn btn-primary">Edit</a>
+        <a asp-controller="Hotels" asp-action="Index" class="btn btn-secondary">Back to List</a>
      </div>      
 </div>

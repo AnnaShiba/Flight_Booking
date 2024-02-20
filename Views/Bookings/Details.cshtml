@@ -1,27 +1,30 @@
-﻿@model ProjectTask
+﻿@model Booking
 
 @{
     //Razor Block
-    ViewData["Title"] = "Task Details";
+    ViewData["Title"] = "Booking Details";
 }
-<h2>Project Task Details</h2>
+<h2>Booking Details</h2>
 <div class="card">
     <div class="card-body">
-        <h3 class="card-title">@Model.Title</h3>
-        <p class="card-text">@Amentitiesiption</p>
+        <h3 class="card-title">@Model.BookingId</h3>
         <dl class="row">
-            <dt class="col-sm-3">Project Id</dt>
-            <dd class="col-sm-9">@HotelIdjectId</dd>
+            <dt class="col-sm-3">Booking Id</dt>
+            <dd class="col-sm-9">@Model.BookingId</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-3">Project Name</dt>
-            <dd class="col-sm-9">@Model.Project.Name</dd>
+            <dt class="col-sm-3">From</dt>
+            <dd class="col-sm-9">@Model.StartDate</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-3">Project Task Id</dt>
-            <dd class="col-sm-9">@Model.ProjectTaskId</dd>
+            <dt class="col-sm-3">To</dt>
+            <dd class="col-sm-9">@Model.EndDate</dd>
         </dl>
-        <a asp-controller="Tasks" asp-action="Edit" asp-route-id="@Model.ProjectTaskId" class="btn btn-primary">Edit Task</a>
-        <a asp-controller="Tasks" asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <dl class="row">
+            <dt class="col-sm-3">Hotel Name</dt>
+            <dd class="col-sm-9">@Model.Hotel.Name</dd>
+        </dl>
+        <a asp-controller="Bookings" asp-action="Edit" asp-route-id="@Model.BookingId" class="btn btn-primary">Edit Task</a>
+        <a asp-controller="Bookings" asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </div>

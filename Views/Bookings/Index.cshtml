@@ -1,9 +1,9 @@
-﻿@model List<ProjectTask>
+﻿@model List<Booking>
 @{
-    ViewData["TitleHotelroject Tasks";
+    ViewData["Title"] = "All Bookings";
 }
 
-<h2>Tasks</h2>
+<h2>All Bookings</h2>
 
 @if (Model.Any()) {
     <table class="table">
@@ -11,20 +11,20 @@
             <tr>
                 <td>ID</td>
                 <td>Title</td>
-                <td>Description</td>
+                <td>Starting Date</td>
                 <td></td>
             </tr>
         </thread>
 
-        @foreach (var projectTask in Model) {
+        @foreach (var booking in Model) {
             <tbody>
                 <tr>
-                    <td>@projectTask.ProjectTaskId</td>
+                    <td>@booking.BookingId</td>
                     <td>
-                        <a asp-controller="Tasks" asp-action="Details" asp-route-id="@projectTask.ProjectTaskId">@projectTask.Title</a>
+                        <a asp-controller="Tasks" asp-action="Details" asp-route-id="@booking.BookingId">View Booking</a>
                     </td>
-                    <td>@projectTAmentitiestion</td>
-                    <td><a asp-controller="Tasks" asp-action="Delete" asp-route-id="@projectTask.ProjectTaskId" class="btn btn-primary">Delete</a></td>
+                    <td>@booking.StartDate</td>
+                    <td><a asp-controller="Tasks" asp-action="Delete" asp-route-id="@booking.BookingId" class="btn btn-primary">Delete</a></td>
                 </tr>
             </tbody>
         }
@@ -34,7 +34,3 @@
 else {
     <p>No project tasks found</p>
 }
-<div class="card-body">
-    <a asp-controller="Tasks" asp-action="Create" asp-route-id="@ViewBag.ProjectId" class="btn btn-primary">Create New Task</a>
-    <a asp-controller="Projects" asp-action="Index" class="btn btn-secondary">Back to Projects</a>
-</div>

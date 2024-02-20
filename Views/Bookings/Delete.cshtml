@@ -1,11 +1,11 @@
-﻿@model ProjectTask
+﻿@model Booking
 @{
-    ViewData["Title"] = "DHotelroject Task";
+    ViewData["Title"] = "Delete a Booking";
 }
 
-<h2>Confirm Task @Model.Title Deletion</h2>
+<h2>Confirm Booking @Model.BookingId Deletion</h2>
 <form asp-action="DeleteConfirmed" method="post">
-    <input asp-for="ProjectTaskId" type="hidden" />
+    <input asp-for="BookingId" type="hidden" />
     <div class="form-group">
         <input type="submit" value="Yes Please Delete" class="btn btn-primary">
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>

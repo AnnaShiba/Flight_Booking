@@ -38,6 +38,7 @@ namespace COMP2139_Assignment.Controllers {
             }
 
             var task = new Booking { BookingId = id };
+            ViewBag.Hotels = _database.Hotels.OrderBy(h => h.Price).ToList();
             return View(task);
         }
         [HttpPost]
@@ -48,6 +49,7 @@ namespace COMP2139_Assignment.Controllers {
                 _database.SaveChanges();
                 return RedirectToAction(nameof(Index), new { id = task.BookingId });
             }
+            ViewBag.Hotels = _database.Hotels.OrderBy(h => h.Price).ToList();
             return View(task);
         }
         [HttpGet]
@@ -58,7 +60,7 @@ namespace COMP2139_Assignment.Controllers {
                 return NotFound();
             }
 
-            ViewBag.Projects = new SelectList(_database.Hotels, "HotelId", "Name", task.BookingId);
+            ViewBag.Hotels = new SelectList(_database.Hotels, "HotelId", "Name", task.HotelId);
             return View(task);
         }
         [HttpPost]
@@ -74,7 +76,7 @@ namespace COMP2139_Assignment.Controllers {
                 return RedirectToAction(nameof(Index), new { id = task.BookingId });
             }
 
-            ViewBag.Projects = new SelectList(_database.Hotels, "HotelId", "Name", task.BookingId);
+            ViewBag.Hotels = new SelectList(_database.Hotels, "HotelId", "Name", task.HotelId);
             return View(task);
         }
 

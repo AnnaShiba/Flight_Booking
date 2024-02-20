@@ -2,9 +2,8 @@
 
 namespace COMP2139_Assignment.Models {
     public class Booking {
-        [Required(ErrorMessage = "Hotel Task ID is required")]
+        [Required(ErrorMessage = "Booking ID is required")]
         public int BookingId { get; set; }
-        [Required(ErrorMessage = "Title is required")]
 
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }

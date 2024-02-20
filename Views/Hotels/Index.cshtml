@@ -6,10 +6,11 @@
 <h2>Hotel Listing</h2>
 
 @if(Model.Any()){
+    <p>@Model.Count hotels found!</p>
     <table class="table">
         <thread>
             <tr>
-                <td>ID</td>
+                <td></td>
                 <td>Name</td>
                 <td>Price</td>
                 <td></td>
@@ -17,16 +18,18 @@
             </tr>
         </thread>
         
-        @foreach(var project in Model) {
+        @foreach(var hotel in Model) {
             <tbody>
                 <tr>
-                    <td>@project.HotelId</td>
                     <td>
-                        <a asp-controller="Hotels" asp-action="Details" asp-route-id="@project.HotelId">@project.Name</a>
+                        <img src="@Href("/img/hotel-" + hotel.HotelId + ".jpg")" width="160" />
                     </td>
-                    <td>@project.Price</td>
-                    <td><a asp-controller="Bookings" asp-action="Index" asp-route-id="@project.HotelId" class="btn btn-primary">View Bookings</a></td>
-                    <td><a asp-controller="Hotels" asp-action="Delete" asp-route-id="@project.HotelId" class="btn btn-primary">Delete</a></td>
+                    <td>
+                        <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.HotelId">@hotel.Name</a>
+                    </td>
+                    <td>$@hotel.Price</td>
+                    <td><a asp-controller="Bookings" asp-action="Index" asp-route-id="@hotel.HotelId" class="btn btn-primary">View Bookings</a></td>
+                    <td><a asp-controller="Hotels" asp-action="Delete" asp-route-id="@hotel.HotelId" class="btn btn-primary">Delete</a></td>
                 </tr>
             </tbody>
         }

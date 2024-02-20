@@ -28,8 +28,7 @@
                         <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.HotelId">@hotel.Name</a>
                     </td>
                     <td>$@hotel.Price</td>
-                    <td><a asp-controller="Bookings" asp-action="Index" asp-route-id="@hotel.HotelId" class="btn btn-primary">View Bookings</a></td>
-                    <td><a asp-controller="Hotels" asp-action="Delete" asp-route-id="@hotel.HotelId" class="btn btn-primary">Delete</a></td>
+                    <td><a asp-controller="Bookings" asp-action="Index" asp-route-id="@hotel.HotelId" class="btn btn-primary">Book</a></td>
                 </tr>
             </tbody>
         }

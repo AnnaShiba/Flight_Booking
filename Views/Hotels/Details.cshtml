@@ -11,10 +11,6 @@
         <p class="card-text">@Model.Amentities</p>
         <img src="@Href("/img/hotel-" + Model.HotelId + ".jpg")" width="512" />
         <dl class="row">
-            <dt class="col-sm-3">Hotel Number</dt>
-            <dd class="col-sm-9">@Model.HotelId</dd>
-        </dl>
-        <dl class="row">
             <dt class="col-sm-3">Location</dt>
             <dd class="col-sm-9">@Model.Location</dd>
         </dl>
@@ -26,8 +22,7 @@
             <dt class="col-sm-3">Reviews</dt>
             <dd class="col-sm-9">@Model.Reviews</dd>
         </dl>
-        <a asp-controller="Bookings" asp-action="Index" asp-route-id="@Model.HotelId" class="btn btn-primary">View Bookings</a>
-        <a asp-controller="Hotels" asp-action="Edit" asp-route-id="@Model.HotelId" class="btn btn-primary">Edit</a>
+        <a asp-controller="Bookings" asp-action="Index" asp-route-id="@Model.HotelId" class="btn btn-primary">Book</a>
         <a asp-controller="Hotels" asp-action="Index" class="btn btn-secondary">Back to List</a>
      </div>      
 </div>

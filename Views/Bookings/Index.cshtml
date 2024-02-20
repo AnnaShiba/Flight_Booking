@@ -21,10 +21,10 @@
                 <tr>
                     <td>@booking.BookingId</td>
                     <td>
-                        <a asp-controller="Tasks" asp-action="Details" asp-route-id="@booking.BookingId">View Booking</a>
+                        <a asp-controller="Bookings" asp-action="Details" asp-route-id="@booking.BookingId">View Booking</a>
                     </td>
                     <td>@booking.StartDate</td>
-                    <td><a asp-controller="Tasks" asp-action="Delete" asp-route-id="@booking.BookingId" class="btn btn-primary">Delete</a></td>
+                    <td><a asp-controller="Bookings" asp-action="Delete" asp-route-id="@booking.BookingId" class="btn btn-primary">Delete</a></td>
                 </tr>
             </tbody>
         }

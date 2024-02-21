@@ -1,4 +1,4 @@
-﻿using COMP2139_Labs.Models;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace COMP2139_Assignment.Models {

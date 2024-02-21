@@ -15,4 +15,5 @@ namespace COMP2139_Assignment.Models {
         public string Image { get; set; } = string.Empty;
         public double Reviews { get; set; }
     }
+
 }

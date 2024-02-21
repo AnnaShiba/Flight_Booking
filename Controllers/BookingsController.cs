@@ -14,92 +14,67 @@ namespace COMP2139_Assignment.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Index(int id) {
-            var tasks = _database.Bookings.Where(t => t.BookingId == id).ToList();
-            ViewBag.ProjectId = id;
-            return View(tasks);
+        public IActionResult Index() {
+            var bookings = _database.Bookings.ToList();
+            return View(bookings);
         }
         [HttpGet]
         public IActionResult Details(int id) {
-            var task = _database.Bookings.Include(t => t.Hotel).FirstOrDefault(t => t.BookingId == id);
+            var booking = _database.Bookings.Include(h => h.Hotel).FirstOrDefault(b => b.BookingId == id);
 
-            if (task == null) {
+            if (booking == null) {
                 return NotFound();
             }
 
-            return View(task);
+            return View(booking);
         }
         [HttpGet]
-        public IActionResult Create(int id) {
-            var project = _database.Hotels.Find(id);
-            if (project == null) {
+        public IActionResult Create(DateTime departureDate, DateTime returnDate, int hotelId, int flightId) {
+            var hotel = _database.Hotels.Find(hotelId);
+            var flight = _database.Flights.Find(flightId);
+            if (flight == null && hotel == null) {
                 return NotFound();
             }
 
-            var task = new Booking { BookingId = id };
-            ViewBag.Hotels = _database.Hotels.OrderBy(h => h.Price).ToList();
-            return View(task);
+            var booking = new Booking { HotelId = hotelId, FlightId = flightId };
+            ViewBag.Hotel = hotel;
+            ViewBag.Flight = flight;
+            ViewBag.DepartureDate = departureDate;
+            ViewBag.ReturnDate = returnDate;
+            return View(booking);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Title", "Amentities", "HotelId")] Booking task) {
+        public IActionResult Create([Bind("StartDate", "EndDate", "HotelId", "FlightId")] Booking booking) {
             if (ModelState.IsValid) {
-                _database.Bookings.Add(task);
+                _database.Bookings.Add(booking);
                 _database.SaveChanges();
-                return RedirectToAction(nameof(Index), new { id = task.BookingId });
+                return RedirectToAction(nameof(Details), new { id = booking.BookingId });
             }
-            ViewBag.Hotels = _database.Hotels.OrderBy(h => h.Price).ToList();
-            return View(task);
-        }
-        [HttpGet]
-        public IActionResult Edit(int id) {
-            var task = _database.Bookings.Include(t => t.Hotel).FirstOrDefault(t => t.BookingId == id);
-
-            if (task == null) {
-                return NotFound();
-            }
-
-            ViewBag.Hotels = new SelectList(_database.Hotels, "HotelId", "Name", task.HotelId);
-            return View(task);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("BookingId", "Title", "Amentities", "HotelId")] Booking task) {
-            if (id != task.BookingId) {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid) {
-                _database.Update(task);
-                _database.SaveChanges();
-                return RedirectToAction(nameof(Index), new { id = task.BookingId });
-            }
-
-            ViewBag.Hotels = new SelectList(_database.Hotels, "HotelId", "Name", task.HotelId);
-            return View(task);
+            return View(booking);
         }
 
         [HttpGet]
         public IActionResult Delete(int id) {
 
-            var task = _database.Bookings.Include(t => t.Hotel).FirstOrDefault(t => t.BookingId == id);
+            var booking = _database.Bookings.Include(b => b.Hotel).FirstOrDefault(b => b.BookingId == id);
 
-            if (task == null) {
+            if (booking == null) {
                 return NotFound();
             }
 
-            return View(task);
+            return View(booking);
         }
 
         [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int ProjectTaskId) {
-            var task = _database.Bookings.Find(ProjectTaskId);
+        public IActionResult DeleteConfirmed(int bookingId) {
+            var booking = _database.Bookings.Find(bookingId);
 
-            if (task != null) {
-                _database.Bookings.Remove(task);
+            if (booking != null) {
+                _database.Bookings.Remove(booking);
                 _database.SaveChanges();
-                return RedirectToAction(nameof(Index), new { id = task.BookingId });
+                return RedirectToAction(nameof(Index));
             }
 
             return NotFound();

@@ -18,7 +18,7 @@ namespace COMP2139_Labs.Controllers {
         }
 
         [HttpGet("Flights/Search")]
-        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate) {
+        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate, int hotelId) {
             var query = _database.Flights.AsQueryable();
 
             if (!string.IsNullOrEmpty(destination)) {
@@ -27,8 +27,9 @@ namespace COMP2139_Labs.Controllers {
 
             var flights = await query.ToListAsync();
             ViewBag.Destination = destination;
-            ViewBag.DepartureDate = departureDate;
-            ViewBag.EeturnDate = returnDate;
+            ViewBag.DepartureDate = departureDate.ToString("yyyy-MM-dd");
+            ViewBag.ReturnDate = returnDate.ToString("yyyy-MM-dd");
+            ViewBag.HotelId = hotelId;
             return View("Index", flights);
         }
     }

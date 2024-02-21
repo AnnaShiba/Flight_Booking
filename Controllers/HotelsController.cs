@@ -87,8 +87,8 @@ namespace COMP2139_Assignment.Controllers {
 
             var hotels = await query.ToListAsync();
             ViewBag.Destination = destination;
-            ViewBag.DepartureDate = departureDate;
-            ViewBag.ReturnDate = returnDate;
+            ViewBag.DepartureDate = departureDate.ToString("yyyy-MM-dd");
+            ViewBag.ReturnDate = returnDate.ToString("yyyy-MM-dd");
             return View("Index", hotels);
         }
     }

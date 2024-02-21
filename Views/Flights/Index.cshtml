@@ -30,7 +30,8 @@
                     <td>@flight.Destination</td>
                     <td>$@flight.Price</td>
                     <td>
-                        <a asp-controller="Bookings" asp-action="Details" asp-route-id="@flight.FlightId" class="btn btn-primary">Select</a>
+                        <a asp-controller="Bookings" asp-action="Create" asp-route-hotelId="@ViewBag.HotelId" asp-route-departureDate="@ViewBag.DepartureDate"
+                           asp-route-returnDate="@ViewBag.ReturnDate" asp-route-flightId="@flight.FlightId" class="btn btn-primary">Select</a>
                     </td>
                 </tr>
             </tbody>

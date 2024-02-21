@@ -5,7 +5,10 @@
 
 <h2>Hotel Listing</h2>
 
-@if(Model.Any()){
+<a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+   asp-route-returnDate="@ViewBag.ReturnDate" class="btn btn-primary">Skip to Flights</a>
+
+@if (Model.Any()) {
     <p>@Model.Count hotels found!</p>
     <table class="table">
         <thread>
@@ -17,8 +20,8 @@
                 <td></td>
             </tr>
         </thread>
-        
-        @foreach(var hotel in Model) {
+
+        @foreach (var hotel in Model) {
             <tbody>
                 <tr>
                     <td>
@@ -28,12 +31,16 @@
                         <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.HotelId">@hotel.Name</a>
                     </td>
                     <td>$@hotel.Price</td>
-                    <td><a asp-controller="Bookings" asp-action="Index" asp-route-id="@hotel.HotelId" class="btn btn-primary">Book</a></td>
+                    <td>
+                        <a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate" 
+                         asp-route-returnDate="@ViewBag.ReturnDate" asp-route-hotelId="@hotel.HotelId" class="btn btn-primary">Book</a>
+                    </td>
                 </tr>
             </tbody>
         }
-        
+
     </table>
-}else{
+}
+else {
     <p>No hotels found</p>
 }

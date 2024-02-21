@@ -75,5 +75,21 @@ namespace COMP2139_Assignment.Controllers {
             _database.Hotels.Where(p => p.HotelId == project.HotelId).ExecuteDelete();
             return RedirectToAction("Index");
         }
+
+        // GET: Hotels/Search/{searchString?}
+        [HttpGet("Hotels/Search")]
+        public async Task<IActionResult> Search(string destination, DateTime startDate, DateTime endDate) {
+            var query = _database.Hotels.AsQueryable();
+
+            if (!string.IsNullOrEmpty(destination)) {
+                query = query.Where(h => h.Location.Contains(destination));
+            }
+
+            var hotels = await query.ToListAsync();
+            ViewBag.Destination = destination;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+            return View("Index", hotels);
+        }
     }
 }

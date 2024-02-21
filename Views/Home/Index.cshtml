@@ -1,7 +1,30 @@
 ﻿@{
     ViewData["Title"] = "GBC Travel Agency";
 }
-
+<form asp-controller="Hotels" asp-action="Search" method="get" class="row g-3">
+    <!-- Indicates that the form data will be submitted to the Create action of the current controller-->
+    <div class="col-auto">
+        <select class="form-control btn btn-secondary dropdown-toggle" name="from">
+            <option value="Toronto">Toronto</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <select class="form-control btn btn-secondary dropdown-toggle" name="destination">
+            <option value="Munich">Munich</option>
+            <option value="Tokyo">Tokyo</option>
+            <option value="Varadero">Varadero</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <input type="date" name="startDate" class="form-control" required />
+    </div>
+    <div class="col-auto">
+        <input type="date" name="endDate" class="form-control" required />
+    </div>
+    <div class="col-auto">
+        <input type="submit" value="Search" class="btn btn-primary">
+    </div>
+</form>
 <div class="text-center">
     <h1 class="display-4">Welcome!</h1>
     <p>Start your vacation with us. Best deals on the web!</p>

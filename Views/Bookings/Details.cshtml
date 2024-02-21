@@ -20,10 +20,18 @@
             <dt class="col-sm-3">To</dt>
             <dd class="col-sm-9">@Model.EndDate</dd>
         </dl>
+        @if (Model.Hotel != null) {
         <dl class="row">
             <dt class="col-sm-3">Hotel Name</dt>
             <dd class="col-sm-9">@Model.Hotel.Name</dd>
         </dl>
+        }
+        @if (Model.Flight != null) {
+            <dl class="row">
+                <dt class="col-sm-3">Airline</dt>
+                <dd class="col-sm-9">@Model.Flight.Airline</dd>
+            </dl>
+        }
         <a asp-controller="Bookings" asp-action="Edit" asp-route-id="@Model.BookingId" class="btn btn-primary">Edit Booking</a>
         <a asp-controller="Bookings" asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>

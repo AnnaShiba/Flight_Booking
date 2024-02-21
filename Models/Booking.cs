@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace COMP2139_Assignment.Models {
     public class Booking {
@@ -10,11 +11,13 @@ namespace COMP2139_Assignment.Models {
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        public int HotelId { get; set; }
-        public int FlightId { get; set; }
+        public double TotalPrice { get; set; }
+
+        public int? HotelId { get; set; }
+        public int? FlightId { get; set; }
 
         // Navigation properties
-        public Hotel? Hotel { get; set; }
-        public Flight? Flight { get; set; }
+        public virtual Hotel? Hotel { get; set; }
+        public virtual Flight? Flight { get; set; }
     }
 }

@@ -8,8 +8,13 @@
     <!-- Indicates that the form data will be submitted to the Create action of the current controller-->
     <p>Your trip itinerary:</p>
     <p>From @ViewBag.DepartureDate to @ViewBag.ReturnDate</p>
-    <p>Staying at @ViewBag.Hotel.Name</p>
-    <p>Flying with @ViewBag.Flight.Airline</p>
+    @if (ViewBag.Hotel != null) {
+        <p>Staying at @ViewBag.Hotel.Name</p>
+    }
+    @if (ViewBag.Flight != null) {
+        <p>Flying with @ViewBag.Flight.Airline</p>
+    }
+    <p>Total: $@Model.TotalPrice</p>
     <input type="hidden" name="StartDate" value="@ViewBag.DepartureDate" readonly />
     <input type="hidden" name="EndDate" value="@ViewBag.ReturnDate" readonly />
     <input asp-for="HotelId" class="form-control" type="hidden" />

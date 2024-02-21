@@ -146,14 +146,16 @@ namespace COMP2139_Assignment.Data {
                     StartDate = new DateTime(2024, 05, 13),
                     EndDate = new DateTime(2024, 05, 27),
                     HotelId = 1,
-                    FlightId = 1
+                    FlightId = 1,
+                    TotalPrice = 1099
                 },
                 new Booking {
                     BookingId = 2,
                     StartDate = new DateTime(2024, 04, 13),
                     EndDate = new DateTime(2024, 04, 27),
                     HotelId = 2,
-                    FlightId = 2
+                    FlightId = 2,
+                    TotalPrice = 1249
                 }
             );
         }

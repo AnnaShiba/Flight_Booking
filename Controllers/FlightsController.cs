@@ -18,7 +18,7 @@ namespace COMP2139_Labs.Controllers {
         }
 
         [HttpGet("Flights/Search")]
-        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate, int hotelId) {
+        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate, int? hotelId) {
             var query = _database.Flights.AsQueryable();
 
             if (!string.IsNullOrEmpty(destination)) {

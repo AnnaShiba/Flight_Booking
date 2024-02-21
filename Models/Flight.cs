@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace COMP2139_Labs.Models {
+namespace COMP2139_Assignment.Models {
     public class Flight {
         [Required(ErrorMessage = "Flight ID is required")]
         public int FlightId { get; set; }

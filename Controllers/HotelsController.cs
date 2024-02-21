@@ -15,13 +15,13 @@ namespace COMP2139_Assignment.Controllers {
 
         [HttpGet]
         public IActionResult Index() {
-            var projects = _database.Hotels.ToList();
-            return View(projects);
+            var hotels = _database.Hotels.ToList();
+            return View(hotels);
         }
         [HttpGet]
         public IActionResult Details(int id) {
-            var project = _database.Hotels.Where(p => p.HotelId == id).Single();
-            return View(project);
+            var hotel = _database.Hotels.Where(p => p.HotelId == id).Single();
+            return View(hotel);
         }
         [HttpGet]
         public IActionResult Create() {
@@ -29,13 +29,13 @@ namespace COMP2139_Assignment.Controllers {
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Hotel project) {
+        public IActionResult Create(Hotel hotel) {
             if (ModelState.IsValid) {
-                _database.Hotels.Add(project);
+                _database.Hotels.Add(hotel);
                 _database.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            return View(hotel);
         }
         [HttpGet]
         public IActionResult Edit(int id) {
@@ -48,37 +48,37 @@ namespace COMP2139_Assignment.Controllers {
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Hotel project) {
+        public IActionResult Edit(Hotel hotel) {
             if (ModelState.IsValid) {
-                var dbProject = _database.Hotels.Where(p => p.HotelId == project.HotelId).Single();
-                dbProject.Name = project.Name;
-                dbProject.Amentities = project.Amentities;
+                var dbHotel = _database.Hotels.Where(p => p.HotelId == hotel.HotelId).Single();
+                dbHotel.Name = hotel.Name;
+                dbHotel.Amentities = hotel.Amentities;
                 _database.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            return View(hotel);
         }
 
         [HttpGet]
         public IActionResult Delete(int id) {
 
-            var project = _database.Hotels.Where(p => p.HotelId == id);
-            if (project.IsNullOrEmpty()) {
+            var hotel = _database.Hotels.Where(p => p.HotelId == id);
+            if (hotel.IsNullOrEmpty()) {
                 return NotFound();
             }
-            return View(project.Single());
+            return View(hotel.Single());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(Hotel project) {
-            _database.Hotels.Where(p => p.HotelId == project.HotelId).ExecuteDelete();
+        public IActionResult DeleteConfirmed(Hotel hotel) {
+            _database.Hotels.Where(p => p.HotelId == hotel.HotelId).ExecuteDelete();
             return RedirectToAction("Index");
         }
 
         // GET: Hotels/Search/{searchString?}
         [HttpGet("Hotels/Search")]
-        public async Task<IActionResult> Search(string destination, DateTime startDate, DateTime endDate) {
+        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate) {
             var query = _database.Hotels.AsQueryable();
 
             if (!string.IsNullOrEmpty(destination)) {
@@ -87,8 +87,8 @@ namespace COMP2139_Assignment.Controllers {
 
             var hotels = await query.ToListAsync();
             ViewBag.Destination = destination;
-            ViewBag.StartDate = startDate;
-            ViewBag.EndDate = endDate;
+            ViewBag.DepartureDate = departureDate;
+            ViewBag.ReturnDate = returnDate;
             return View("Index", hotels);
         }
     }

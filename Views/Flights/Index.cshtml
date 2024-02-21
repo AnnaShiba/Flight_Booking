@@ -1,0 +1,43 @@
+﻿@model List<Flight>
+@{
+    ViewData["Title"] = "Flight Listing";
+}
+
+<h2>Flight Listing</h2>
+
+@if (Model.Any()) {
+    <p>@Model.Count flights found!</p>
+    <table class="table">
+        <thread>
+            <tr>
+                <td>Airline</td>
+                <td>Departure</td>
+                <td>Arrival</td>
+                <td>From</td>
+                <td>To</td>
+                <td>Price</td>
+                <td></td>
+            </tr>
+        </thread>
+
+        @foreach (var flight in Model) {
+            <tbody>
+                <tr>
+                    <td>@flight.Airline</td>
+                    <td>@flight.DepartureFrom</td>
+                    <td>@flight.DepartureTo</td>
+                    <td>@flight.Source</td>
+                    <td>@flight.Destination</td>
+                    <td>$@flight.Price</td>
+                    <td>
+                        <a asp-controller="Bookings" asp-action="Details" asp-route-id="@flight.FlightId" class="btn btn-primary">Select</a>
+                    </td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+}
+else {
+    <p>No flights found</p>
+}

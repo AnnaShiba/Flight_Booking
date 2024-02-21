@@ -16,10 +16,10 @@
         </select>
     </div>
     <div class="col-auto">
-        <input type="date" name="startDate" class="form-control" required />
+        <input type="date" name="departureDate" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" required />
     </div>
     <div class="col-auto">
-        <input type="date" name="endDate" class="form-control" required />
+        <input type="date" name="returnDate" class="form-control" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" required />
     </div>
     <div class="col-auto">
         <input type="submit" value="Search" class="btn btn-primary">

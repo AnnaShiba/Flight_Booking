@@ -3,7 +3,6 @@ using COMP2139_Assignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace COMP2139_Assignment.Controllers {
     public class BookingsController : Controller {

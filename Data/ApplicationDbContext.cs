@@ -1,5 +1,4 @@
 ﻿using COMP2139_Assignment.Models;
-using COMP2139_Labs.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace COMP2139_Assignment.Data {

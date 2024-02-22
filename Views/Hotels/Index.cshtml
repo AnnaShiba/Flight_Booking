@@ -14,9 +14,18 @@
         <thread>
             <tr>
                 <td></td>
-                <td>Name</td>
-                <td>Price</td>
-                <td></td>
+                <td>
+                    <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+                       asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Name" class="btn btn-primary">Sort by Name</a>
+                </td>
+                <td>
+                    <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+                       asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Reviews" class="btn btn-primary">Sort by Reviews</a>
+                </td>
+                <td>
+                    <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+                       asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Price" class="btn btn-primary">Sort by Price</a>
+                </td>
                 <td></td>
             </tr>
         </thread>
@@ -30,6 +39,7 @@
                     <td>
                         <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.HotelId">@hotel.Name</a>
                     </td>
+                    <td>@hotel.Reviews</td>
                     <td>$@hotel.Price</td>
                     <td>
                         <a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate" 

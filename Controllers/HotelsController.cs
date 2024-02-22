@@ -3,6 +3,7 @@ using COMP2139_Assignment.Models;
 using COMP2139_Assignment.Data;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace COMP2139_Assignment.Controllers {
     public class HotelsController : Controller {
@@ -78,11 +79,25 @@ namespace COMP2139_Assignment.Controllers {
 
         // GET: Hotels/Search/{searchString?}
         [HttpGet("Hotels/Search")]
-        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate) {
+        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate, string sort) {
             var query = _database.Hotels.AsQueryable();
 
             if (!string.IsNullOrEmpty(destination)) {
                 query = query.Where(h => h.Location.Contains(destination));
+            }
+
+            switch (sort) {
+                case "Name":
+                    query = query.OrderBy(h => h.Name);
+                    break;
+                case "Reviews":
+                    query = query.OrderBy(h => h.Reviews);
+                    break;
+                case "Price":
+                    query = query.OrderBy(h => h.Price);
+                    break;
+                default:
+                    break;
             }
 
             var hotels = await query.ToListAsync();

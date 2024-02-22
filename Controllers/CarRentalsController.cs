@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using COMP2139_Assignment.Data;
 using COMP2139_Assignment.Models;
@@ -137,6 +136,21 @@ namespace COMP2139_Assignment.Controllers
         private bool CarRentalExists(int id)
         {
             return _context.CarRentals.Any(e => e.Id == id);
+        }
+
+        [HttpGet("CarRentals/Search")]
+        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate) {
+            var query = _context.CarRentals.AsQueryable();
+
+            if (!string.IsNullOrEmpty(destination)) {
+                query = query.Where(h => h.AvailableFrom <= departureDate && h.AvailableUntil >= returnDate);
+            }
+
+            var cars = await query.ToListAsync();
+            ViewBag.Destination = destination;
+            ViewBag.DepartureDate = departureDate.ToString("yyyy-MM-dd");
+            ViewBag.ReturnDate = returnDate.ToString("yyyy-MM-dd");
+            return View("Index", cars);
         }
     }
 }

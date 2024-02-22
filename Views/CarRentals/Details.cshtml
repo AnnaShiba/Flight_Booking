@@ -1,0 +1,43 @@
+﻿@model COMP2139_Assignment.Models.CarRental
+
+@{
+    ViewData["Title"] = "Car Rental Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Car Rental</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Make)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Make)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Model)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Model)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Year)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Year)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Color)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Color)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PricePerDay)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PricePerDay)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.IsAvailable)</dt>
+        <dd class="col-sm-10">@(Model.IsAvailable ? "Yes" : "No")</dd>
+
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.AvailableFrom)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.AvailableFrom, "{0:yyyy-MM-dd}")</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.AvailableUntil)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.AvailableUntil, "{0:yyyy-MM-dd}")</dd>
+    </dl>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>

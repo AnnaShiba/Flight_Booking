@@ -9,6 +9,8 @@ namespace COMP2139_Assignment.Data {
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Booking> Bookings { get; set; }
 
+        public DbSet<CarRental> CarRentals { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<Hotel>().HasData(
                 new Hotel {
@@ -156,6 +158,119 @@ namespace COMP2139_Assignment.Data {
                     HotelId = 2,
                     FlightId = 2,
                     TotalPrice = 1249
+                }
+            );
+
+            modelBuilder.Entity<CarRental>().HasData(
+               new CarRental {
+                   Id = 1,
+                   Make = "Toyota",
+                   Model = "Camry",
+                   Year = 2020,
+                   Color = "Blue",
+                   PricePerDay = 50.00M,
+                   IsAvailable = true,
+                   AvailableFrom = DateTime.Today,
+                   AvailableUntil = DateTime.Today.AddDays(30)
+               },
+                new CarRental {
+                    Id = 2,
+                    Make = "Ford",
+                    Model = "Focus",
+                    Year = 2019,
+                    Color = "White",
+                    PricePerDay = 45.00M,
+                    IsAvailable = true,
+                    AvailableFrom = DateTime.Today,
+                    AvailableUntil = DateTime.Today.AddDays(30)
+                },
+                new CarRental {
+                    Id = 3,
+                    Make = "Honda",
+                    Model = "Civic",
+                    Year = 2018,
+                    Color = "Red",
+                    PricePerDay = 40.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 01, 01),
+                    AvailableUntil = new DateTime(2024, 01, 31)
+                },
+                new CarRental {
+                    Id = 4,
+                    Make = "Chevrolet",
+                    Model = "Malibu",
+                    Year = 2019,
+                    Color = "Black",
+                    PricePerDay = 55.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 02, 01),
+                    AvailableUntil = new DateTime(2024, 02, 28)
+                },
+                new CarRental {
+                    Id = 5,
+                    Make = "Ford",
+                    Model = "Mustang",
+                    Year = 2020,
+                    Color = "Yellow",
+                    PricePerDay = 75.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 03, 01),
+                    AvailableUntil = new DateTime(2024, 03, 31)
+                },
+                new CarRental {
+                    Id = 6,
+                    Make = "Tesla",
+                    Model = "Model 3",
+                    Year = 2021,
+                    Color = "White",
+                    PricePerDay = 85.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 04, 01),
+                    AvailableUntil = new DateTime(2024, 04, 30)
+                },
+                new CarRental {
+                    Id = 7,
+                    Make = "BMW",
+                    Model = "3 Series",
+                    Year = 2019,
+                    Color = "Blue",
+                    PricePerDay = 90.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 05, 01),
+                    AvailableUntil = new DateTime(2024, 05, 31)
+                },
+                new CarRental {
+                    Id = 8,
+                    Make = "Audi",
+                    Model = "A4",
+                    Year = 2020,
+                    Color = "Grey",
+                    PricePerDay = 95.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 06, 01),
+                    AvailableUntil = new DateTime(2024, 06, 30)
+                },
+                new CarRental {
+                    Id = 9,
+                    Make = "Mercedes",
+                    Model = "Benz C-Class",
+                    Year = 2021,
+                    Color = "Black",
+                    PricePerDay = 100.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 07, 01),
+                    AvailableUntil = new DateTime(2024, 07, 31)
+                },
+                new CarRental {
+                    Id = 10,
+                    Make = "Nissan",
+                    Model = "Altima",
+                    Year = 2018,
+                    Color = "Silver",
+                    PricePerDay = 50.00M,
+                    IsAvailable = true,
+                    AvailableFrom = new DateTime(2024, 08, 01),
+                    AvailableUntil = new DateTime(2024, 08, 31)
                 }
             );
         }

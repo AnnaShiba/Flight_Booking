@@ -39,7 +39,9 @@ namespace COMP2139_Assignment.Controllers {
             }
 
             if (hotel != null) {
-                totalPrice += hotel.Price;
+                var days = returnDate - departureDate;
+                int duration = (int)days.TotalDays;
+                totalPrice += duration * hotel.Price;
             }
             if (flight != null) {
                 totalPrice += flight.Price;

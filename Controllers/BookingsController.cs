@@ -60,6 +60,21 @@ namespace COMP2139_Assignment.Controllers {
             if (ModelState.IsValid) {
                 booking.TotalPrice = 0;
 
+                var hotel = _database.Hotels.Find(booking.HotelId);
+                var flight = _database.Flights.Find(booking.FlightId);
+                if (flight == null && hotel == null) {
+                    return NotFound();
+                }
+
+                if (hotel != null) {
+                    var days = booking.EndDate - booking.StartDate;
+                    int duration = (int)days.TotalDays;
+                    booking.TotalPrice += duration * hotel.Price;
+                }
+                if (flight != null) {
+                    booking.TotalPrice += flight.Price;
+                }
+
                 _database.Bookings.Add(booking);
                 _database.SaveChanges();
                 return RedirectToAction(nameof(Details), new { id = booking.BookingId });

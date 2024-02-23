@@ -3,58 +3,64 @@
     ViewData["Title"] = "Hotel Listing";
 }
 
-<h2>Hotel Listing</h2>
+<div class="container mt-4">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
 
-<p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to make a Booking</a>
-</p>
+    <div class="mb-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2">Return to GBC Travel</a>
+        <a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+           asp-route-returnDate="@ViewBag.ReturnDate" class="btn btn-primary">Skip to Flights</a>
+    </div>
 
-<a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
-   asp-route-returnDate="@ViewBag.ReturnDate" class="btn btn-primary">Skip to Flights</a>
+    @if (Model.Any())
+    {
+        <p>@Model.Count hotels found!</p>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th>
+                            <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+                               asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Name" class="btn btn-secondary btn-sm">Sort by Name</a>
+                        </th>
+                        <th>
+                            <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+                               asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Reviews" class="btn btn-secondary btn-sm">Sort by Reviews</a>
+                        </th>
+                        <th>
+                            <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+                               asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Price" class="btn btn-secondary btn-sm">Sort by Price</a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
 
-@if (Model.Any()) {
-    <p>@Model.Count hotels found!</p>
-    <table class="table">
-        <thread>
-            <tr>
-                <td></td>
-                <td>
-                    <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
-                       asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Name" class="btn btn-primary">Sort by Name</a>
-                </td>
-                <td>
-                    <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
-                       asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Reviews" class="btn btn-primary">Sort by Reviews</a>
-                </td>
-                <td>
-                    <a asp-controller="Hotels" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
-                       asp-route-returnDate="@ViewBag.ReturnDate" asp-route-sort="Price" class="btn btn-primary">Sort by Price</a>
-                </td>
-                <td></td>
-            </tr>
-        </thread>
+                <tbody>
+                    @foreach (var hotel in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@Href("/img/hotel-" + hotel.HotelId + ".jpg")" width="160" class="img-fluid" alt="Hotel Image" />
+                            </td>
+                            <td>
+                                <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.HotelId">@hotel.Name</a>
+                            </td>
+                            <td>@hotel.Reviews</td>
+                            <td>$@hotel.Price</td>
+                            <td>
+                                <a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+                                   asp-route-returnDate="@ViewBag.ReturnDate" asp-route-hotelId="@hotel.HotelId" class="btn btn-success btn-sm">Book</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
-        @foreach (var hotel in Model) {
-            <tbody>
-                <tr>
-                    <td>
-                        <img src="@Href("/img/hotel-" + hotel.HotelId + ".jpg")" width="160" />
-                    </td>
-                    <td>
-                        <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.HotelId">@hotel.Name</a>
-                    </td>
-                    <td>@hotel.Reviews</td>
-                    <td>$@hotel.Price</td>
-                    <td>
-                        <a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate" 
-                         asp-route-returnDate="@ViewBag.ReturnDate" asp-route-hotelId="@hotel.HotelId" class="btn btn-primary">Book</a>
-                    </td>
-                </tr>
-            </tbody>
-        }
-
-    </table>
-}
-else {
-    <p>No hotels found</p>
-}
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No hotels found.</p>
+    }
+</div>

@@ -3,7 +3,12 @@
     ViewData["Title"] = "All Bookings";
 }
 
+
 <h2>All Bookings</h2>
+
+<p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2">Return to GBC Travel</a>
+</p>
 
 @if (Model.Any()) {
     <table class="table">

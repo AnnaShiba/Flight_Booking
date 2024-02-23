@@ -15,7 +15,47 @@
 
     @if (Model.Any())
     {
-        <p><strong>@Model.Count</strong> flights found!</p>
+        <!--<p><strong>@Model.Count</strong> flights found!</p> Replased with a Java Script filter bellow  -->
+
+        <input class="mb-4"  type="text" id="priceFilter" onkeyup="filterFlights()" placeholder="Enter max price">
+        <div class="mb-4"  id="flightCountDisplay"></div>
+
+        <script>
+            var flightCount = @Model.Count; 
+
+            function filterFlights() {
+                var input = document.getElementById('priceFilter');
+                var filter = parseFloat(input.value, 10);
+                var table = document.querySelector(".table tbody");
+                var rows = table.getElementsByTagName("tr");
+                var visibleCount = 0; 
+
+                for (var i = 0; i < rows.length; i++) {
+                    var priceCell = rows[i].getElementsByTagName("td")[5]; 
+                    var price = parseFloat(priceCell.innerText.replace(/[^0-9.]/g, ''), 10);
+
+                    if (isNaN(filter) || price <= filter) {
+                        rows[i].style.display = "";
+                        visibleCount++; 
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+
+                document.getElementById("flightCountDisplay").innerText = visibleCount + " flights found!";
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("flightCountDisplay").innerText = flightCount + " flights found!";
+            });
+        </script>
+
+
+
+
+
+
+
         <div class="table-responsive">
             <table class="table table-bordered table-hover shadow">
                 <thead class="thead-light">

@@ -4,72 +4,71 @@
     ViewData["Title"] = "Create New Car Rental";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+    <div class="card">
+        <div class="card-header">
+            Enter Car Rental Information
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-<h4>CarRental</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="Make" class="form-label"></label>
+                    <input asp-for="Make" class="form-control" placeholder="Enter Make" />
+                    <span asp-validation-for="Make" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
-                <input asp-for="Make" class="form-control" />
-                <span asp-validation-for="Make" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Model" class="form-label"></label>
+                    <input asp-for="Model" class="form-control" placeholder="Enter Model" />
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Year" class="form-label"></label>
+                    <input asp-for="Year" class="form-control" placeholder="Enter Year" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Color" class="form-label"></label>
+                    <input asp-for="Color" class="form-control" placeholder="Enter Color" />
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="PricePerDay" class="form-label"></label>
+                    <input asp-for="PricePerDay" class="form-control" placeholder="Enter Price Per Day" />
+                    <span asp-validation-for="PricePerDay" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="PricePerDay" class="control-label"></label>
-                <input asp-for="PricePerDay" class="form-control" />
-                <span asp-validation-for="PricePerDay" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="IsAvailable" class="form-label"></label>
+                    <select asp-for="IsAvailable" class="form-select">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="IsAvailable" class="control-label"></label>
-                <select asp-for="IsAvailable" class="form-control">
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="AvailableFrom" class="form-label"></label>
+                    <input asp-for="AvailableFrom" type="date" class="form-control" />
+                    <span asp-validation-for="AvailableFrom" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="AvailableFrom" class="control-label"></label>
-                <input asp-for="AvailableFrom" type="date" class="form-control" />
-                <span asp-validation-for="AvailableFrom" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="AvailableUntil" class="form-label"></label>
+                    <input asp-for="AvailableUntil" type="date" class="form-control" />
+                    <span asp-validation-for="AvailableUntil" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="AvailableUntil" class="control-label"></label>
-                <input asp-for="AvailableUntil" type="date" class="form-control" />
-                <span asp-validation-for="AvailableUntil" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="d-grid gap-2">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>

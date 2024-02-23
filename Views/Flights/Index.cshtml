@@ -1,48 +1,58 @@
 ﻿@model List<Flight>
+
 @{
     ViewData["Title"] = "Flight Listing";
 }
 
-<h2>Flight Listing</h2>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 
-<p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to GBC Travel</a>
-</p>
+<div class="container mt-5">
+    <h2 class="mb-3">@ViewData["Title"] <i class="fas fa-plane-departure"></i></h2>
 
-@if (Model.Any()) {
-    <p>@Model.Count flights found!</p>
-    <table class="table">
-        <thread>
-            <tr>
-                <td>Airline</td>
-                <td>Departure</td>
-                <td>Arrival</td>
-                <td>From</td>
-                <td>To</td>
-                <td>Price</td>
-                <td></td>
-            </tr>
-        </thread>
+    <div class="mb-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary me-2"><i class="fas fa-home"></i> Return to GBC Travel</a>
+    </div>
 
-        @foreach (var flight in Model) {
-            <tbody>
-                <tr>
-                    <td>@flight.Airline</td>
-                    <td>@flight.DepartureFrom.ToString("dd.MM.yyyy hh:m")</td>
-                    <td>@flight.DepartureTo.ToString("dd.MM.yyyy hh:m")</td>
-                    <td>@flight.Source</td>
-                    <td>@flight.Destination</td>
-                    <td>$@flight.Price</td>
-                    <td>
-                        <a asp-controller="Bookings" asp-action="Create" asp-route-hotelId="@ViewBag.HotelId" asp-route-departureDate="@ViewBag.DepartureDate"
-                           asp-route-returnDate="@ViewBag.ReturnDate" asp-route-flightId="@flight.FlightId" class="btn btn-primary">Select</a>
-                    </td>
-                </tr>
-            </tbody>
-        }
-
-    </table>
-}
-else {
-    <p>No flights found</p>
-}
+    @if (Model.Any())
+    {
+        <p><strong>@Model.Count</strong> flights found!</p>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Airline</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var flight in Model)
+                    {
+                        <tr>
+                            <td>@flight.Airline</td>
+                            <td>@flight.DepartureFrom.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@flight.DepartureTo.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@flight.Source</td>
+                            <td>@flight.Destination</td>
+                            <td>$@flight.Price.ToString("N2")</td>
+                            <td>
+                                <a asp-controller="Bookings" asp-action="Create" asp-route-flightId="@flight.FlightId"
+                                   class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> Select</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            No flights found.
+        </div>
+    }
+</div>

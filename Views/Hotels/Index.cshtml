@@ -5,6 +5,10 @@
 
 <h2>Hotel Listing</h2>
 
+<p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to make a Booking</a>
+</p>
+
 <a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
    asp-route-returnDate="@ViewBag.ReturnDate" class="btn btn-primary">Skip to Flights</a>
 

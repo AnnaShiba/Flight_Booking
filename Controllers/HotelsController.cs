@@ -77,7 +77,7 @@ namespace COMP2139_Assignment.Controllers {
             return RedirectToAction("Index");
         }
 
-        // GET: Hotels/Search/{searchString?}
+        
         [HttpGet("Hotels/Search")]
         public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate, string sort) {
             var query = _database.Hotels.AsQueryable();

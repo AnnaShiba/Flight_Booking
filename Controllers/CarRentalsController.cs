@@ -137,19 +137,30 @@ namespace COMP2139_Assignment.Controllers
         {
             return _context.CarRentals.Any(e => e.Id == id);
         }
-
         [HttpGet("CarRentals/Search")]
-        public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate) {
+        public async Task<IActionResult> Search(DateTime departureDate, DateTime returnDate, decimal? minPrice, decimal? maxPrice)
+        {
             var query = _context.CarRentals.AsQueryable();
 
-            if (!string.IsNullOrEmpty(destination)) {
-                query = query.Where(h => h.AvailableFrom <= departureDate && h.AvailableUntil >= returnDate);
+            // Filter by availability dates
+            query = query.Where(c => c.AvailableFrom <= departureDate && c.AvailableUntil >= returnDate);
+
+            //  filters for price per day if they are provided
+            if (minPrice.HasValue)
+            {
+                query = query.Where(c => c.PricePerDay >= minPrice.Value);
+            }
+            if (maxPrice.HasValue)
+            {
+                query = query.Where(c => c.PricePerDay <= maxPrice.Value);
             }
 
             var cars = await query.ToListAsync();
-            ViewBag.Destination = destination;
             ViewBag.DepartureDate = departureDate.ToString("yyyy-MM-dd");
             ViewBag.ReturnDate = returnDate.ToString("yyyy-MM-dd");
+            //  search parameters to use in the view
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
             return View("Index", cars);
         }
     }

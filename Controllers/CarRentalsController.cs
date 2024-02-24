@@ -141,7 +141,7 @@ namespace COMP2139_Assignment.Controllers
             return _context.CarRentals.Any(e => e.Id == id);
         }
         [HttpGet("CarRentals/Search")]
-        public async Task<IActionResult> Search(DateTime departureDate, DateTime returnDate, int hotelId, int flightId, decimal? minPrice, decimal? maxPrice)
+        public async Task<IActionResult> Search(DateTime departureDate, DateTime returnDate, int? hotelId, int? flightId, decimal? minPrice, decimal? maxPrice)
         {
             var query = _context.CarRentals.AsQueryable();
 

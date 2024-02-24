@@ -41,6 +41,22 @@
                         </a>
                     </dd>
                 }
+
+                @if (Model.CarRental != null)
+                {
+                    <dt class="col-sm-3"><i class="fas fa-car"></i> Car Rental</dt>
+                    <dd class="col-sm-9">
+                        <a asp-controller="CarRentals" asp-action="Details" asp-route-id="@Model.CarRental.Id" class="text-decoration-none">
+                            @Model.CarRental.Make @Model.CarRental.Model (@Model.CarRental.Year)
+                        </a>
+                        <div><strong>Color:</strong> @Model.CarRental.Color</div>
+                        <div><strong>Price Per Day:</strong> @Model.CarRental.PricePerDay.ToString("C")</div>
+                        <div><strong>Available From:</strong> @Model.CarRental.AvailableFrom.ToString("MM/dd/yyyy")</div>
+                        <div><strong>Available Until:</strong> @Model.CarRental.AvailableUntil.ToString("MM/dd/yyyy")</div>
+                    </dd>
+                }
+
+
             </dl>
             <div class="mt-4 d-flex justify-content-between">
                 <a asp-controller="Bookings" asp-action="Edit" asp-route-id="@Model.BookingId" class="btn btn-warning me-2"><i class="fas fa-edit"></i> Edit Booking</a>

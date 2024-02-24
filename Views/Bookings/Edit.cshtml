@@ -1,0 +1,64 @@
+﻿@model Booking
+
+@{
+    ViewData["Title"] = "Edit Booking";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="BookingId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="StartDate" class="control-label">Start Date</label>
+                        <input asp-for="StartDate" type="date" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="EndDate" class="control-label">End Date</label>
+                        <input asp-for="EndDate" type="date" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="HotelId" class="control-label">Hotel</label>
+                    <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId">
+                        <option value="">Select a hotel...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FlightId" class="control-label">Flight</label>
+                    <select asp-for="FlightId" class="form-control" asp-items="ViewBag.FlightId">
+                        <option value="">Select a flight...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CarRentalId" class="control-label">Car Rental</label>
+                    <select asp-for="CarRentalId" class="form-control" asp-items="ViewBag.CarRentalId">
+                        <option value="">Select a car rental...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

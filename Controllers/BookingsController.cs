@@ -22,10 +22,15 @@ namespace COMP2139_Assignment.Controllers
             var bookings = _database.Bookings.ToList();
             return View(bookings);
         }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var booking = _database.Bookings.Include(b => b.Hotel).Include(b => b.Flight).FirstOrDefault(b => b.BookingId == id);
+            var booking = _database.Bookings
+                .Include(b => b.Hotel)
+                .Include(b => b.Flight)
+                .Include(b => b.CarRental)
+                .FirstOrDefault(b => b.BookingId == id);
 
             if (booking == null)
             {
@@ -34,6 +39,7 @@ namespace COMP2139_Assignment.Controllers
 
             return View(booking);
         }
+
         [HttpGet]
         public IActionResult Create(DateTime departureDate, DateTime returnDate, int? hotelId, int? flightId, int? carId)
         {
@@ -131,5 +137,68 @@ namespace COMP2139_Assignment.Controllers
             }
             return totalPrice;
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var booking = await _database.Bookings.FindAsync(id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["HotelId"] = new SelectList(_database.Hotels, "HotelId", "Name", booking.HotelId);
+            ViewData["FlightId"] = new SelectList(_database.Flights, "FlightId", "Airline", booking.FlightId);
+            ViewData["CarRentalId"] = new SelectList(_database.CarRentals, "Id", "Model", booking.CarRentalId);
+            return View(booking);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("BookingId", "StartDate", "EndDate", "HotelId", "FlightId", "CarRentalId", "TotalPrice")] Booking booking)
+        {
+            if (id != booking.BookingId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _database.Update(booking);
+                    await _database.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BookingExists(booking.BookingId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewData["HotelId"] = new SelectList(_database.Hotels, "HotelId", "Name", booking.HotelId);
+            ViewData["FlightId"] = new SelectList(_database.Flights, "FlightId", "Airline", booking.FlightId);
+            ViewData["CarRentalId"] = new SelectList(_database.CarRentals, "Id", "Model", booking.CarRentalId);
+            return View(booking);
+        }
+
+        private bool BookingExists(int id)
+        {
+            return _database.Bookings.Any(e => e.BookingId == id);
+        }
+
+
     }
 }

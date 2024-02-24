@@ -30,7 +30,7 @@ namespace COMP2139_Labs.Controllers {
             ViewBag.DepartureDate = departureDate.ToString("yyyy-MM-dd");
             ViewBag.ReturnDate = returnDate.ToString("yyyy-MM-dd");
             ViewBag.HotelId = hotelId;
-            return View("Index", flights);
+            return View("Search", flights);
         }
     }
 }

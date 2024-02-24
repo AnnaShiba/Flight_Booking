@@ -1,0 +1,98 @@
+﻿@model List<Flight>
+
+@{
+    ViewData["Title"] = "Flight Listing";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <h2 class="mb-3">@ViewData["Title"] <i class="fas fa-plane-departure"></i></h2>
+
+    <div class="mb-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary me-2"><i class="fas fa-home"></i> Return to GBC Travel</a>
+    </div>
+
+    @if (Model.Any())
+    {
+        <!--<p><strong>@Model.Count</strong> flights found!</p> Replased with a Java Script filter bellow  -->
+
+        <input class="mb-4"  type="text" id="priceFilter" onkeyup="filterFlights()" placeholder="Enter max price">
+        <div class="mb-4"  id="flightCountDisplay"></div>
+
+        <script>
+            var flightCount = @Model.Count; 
+
+            function filterFlights() {
+                var input = document.getElementById('priceFilter');
+                var filter = parseFloat(input.value, 10);
+                var table = document.querySelector(".table tbody");
+                var rows = table.getElementsByTagName("tr");
+                var visibleCount = 0; 
+
+                for (var i = 0; i < rows.length; i++) {
+                    var priceCell = rows[i].getElementsByTagName("td")[5]; 
+                    var price = parseFloat(priceCell.innerText.replace(/[^0-9.]/g, ''), 10);
+
+                    if (isNaN(filter) || price <= filter) {
+                        rows[i].style.display = "";
+                        visibleCount++; 
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+
+                document.getElementById("flightCountDisplay").innerText = visibleCount + " flights found!";
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("flightCountDisplay").innerText = flightCount + " flights found!";
+            });
+        </script>
+
+
+
+
+
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Airline</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var flight in Model)
+                    {
+                        <tr>
+                            <td>@flight.Airline</td>
+                            <td>@flight.DepartureFrom.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@flight.DepartureTo.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@flight.Source</td>
+                            <td>@flight.Destination</td>
+                            <td>$@flight.Price.ToString("N2")</td>
+                            <td>
+                                <a asp-controller="CarRentals" asp-action="Search" asp-route-hotelId="@ViewBag.HotelId" asp-route-departureDate="@ViewBag.DepartureDate"
+                                   asp-route-returnDate="@ViewBag.ReturnDate" asp-route-flightId="@flight.FlightId" class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> Select</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            No flights found.
+        </div>
+    }
+</div>

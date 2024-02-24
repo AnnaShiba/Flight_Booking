@@ -13,11 +13,15 @@ namespace COMP2139_Assignment.Models {
 
         public double TotalPrice { get; set; }
 
+        public int PersonCount { get; set; }
+
         public int? HotelId { get; set; }
         public int? FlightId { get; set; }
+        public int? CarRentalId { get; set; }
 
         // Navigation properties
         public virtual Hotel? Hotel { get; set; }
         public virtual Flight? Flight { get; set; }
+        public virtual CarRental? CarRental { get; set; }
     }
 }

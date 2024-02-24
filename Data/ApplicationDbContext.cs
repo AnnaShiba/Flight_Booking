@@ -149,6 +149,7 @@ namespace COMP2139_Assignment.Data {
                     EndDate = new DateTime(2024, 05, 27),
                     HotelId = 1,
                     FlightId = 1,
+                    PersonCount = 1,
                     TotalPrice = 1099
                 },
                 new Booking {
@@ -157,6 +158,7 @@ namespace COMP2139_Assignment.Data {
                     EndDate = new DateTime(2024, 04, 27),
                     HotelId = 2,
                     FlightId = 2,
+                    PersonCount = 1,
                     TotalPrice = 1249
                 }
             );

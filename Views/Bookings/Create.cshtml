@@ -14,11 +14,16 @@
     @if (ViewBag.Flight != null) {
         <p>Flying with @ViewBag.Flight.Airline</p>
     }
+    @if (ViewBag.CarRental != null)
+    {
+        <p>Renting a @ViewBag.CarRental.Make @ViewBag.CarRental.Model</p>
+    }
     <p>Total: $@Model.TotalPrice</p>
     <input type="hidden" name="StartDate" value="@ViewBag.DepartureDate" readonly />
     <input type="hidden" name="EndDate" value="@ViewBag.ReturnDate" readonly />
     <input asp-for="HotelId" class="form-control" type="hidden" />
     <input asp-for="FlightId" class="form-control" type="hidden" />
+    <input asp-for="CarRentalId" class="form-control" type="hidden" />
     <div class="form-group">
         <label class="control-label"></label>
         <input type="submit" value="Finish Booking" class="btn btn-primary">

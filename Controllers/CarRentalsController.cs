@@ -128,8 +128,11 @@ namespace COMP2139_Assignment.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var carRental = await _context.CarRentals.FindAsync(id);
-            _context.CarRentals.Remove(carRental);
-            await _context.SaveChangesAsync();
+            if (carRental != null)
+            {
+                _context.CarRentals.Remove(carRental);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -138,7 +141,7 @@ namespace COMP2139_Assignment.Controllers
             return _context.CarRentals.Any(e => e.Id == id);
         }
         [HttpGet("CarRentals/Search")]
-        public async Task<IActionResult> Search(DateTime departureDate, DateTime returnDate, decimal? minPrice, decimal? maxPrice)
+        public async Task<IActionResult> Search(DateTime departureDate, DateTime returnDate, int hotelId, int flightId, decimal? minPrice, decimal? maxPrice)
         {
             var query = _context.CarRentals.AsQueryable();
 
@@ -158,10 +161,12 @@ namespace COMP2139_Assignment.Controllers
             var cars = await query.ToListAsync();
             ViewBag.DepartureDate = departureDate.ToString("yyyy-MM-dd");
             ViewBag.ReturnDate = returnDate.ToString("yyyy-MM-dd");
+            ViewBag.HotelId = hotelId;
+            ViewBag.FlightId = flightId;
             //  search parameters to use in the view
             ViewBag.MinPrice = minPrice;
             ViewBag.MaxPrice = maxPrice;
-            return View("Index", cars);
+            return View("Search", cars);
         }
     }
 }

@@ -4,76 +4,77 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace COMP2139_Assignment.Controllers {
-    public class BookingsController : Controller {
+namespace COMP2139_Assignment.Controllers
+{
+    public class BookingsController : Controller
+    {
         private ApplicationDbContext _database;
 
         // dependency injection
-        public BookingsController(ApplicationDbContext applicationDbContext) {
+        public BookingsController(ApplicationDbContext applicationDbContext)
+        {
             _database = applicationDbContext;
         }
 
         [HttpGet]
-        public IActionResult Index() {
+        public IActionResult Index()
+        {
             var bookings = _database.Bookings.ToList();
             return View(bookings);
         }
         [HttpGet]
-        public IActionResult Details(int id) {
+        public IActionResult Details(int id)
+        {
             var booking = _database.Bookings.Include(b => b.Hotel).Include(b => b.Flight).FirstOrDefault(b => b.BookingId == id);
 
-            if (booking == null) {
+            if (booking == null)
+            {
                 return NotFound();
             }
 
             return View(booking);
         }
         [HttpGet]
-        public IActionResult Create(DateTime departureDate, DateTime returnDate, int? hotelId, int? flightId) {
+        public IActionResult Create(DateTime departureDate, DateTime returnDate, int? hotelId, int? flightId, int? carId)
+        {
             double totalPrice = 0;
 
             var hotel = _database.Hotels.Find(hotelId);
             var flight = _database.Flights.Find(flightId);
-            if (flight == null && hotel == null) {
+            var car = _database.CarRentals.Find(carId);
+            if (flight == null && hotel == null && car == null)
+            {
                 return NotFound();
             }
 
-            if (hotel != null) {
-                var days = returnDate - departureDate;
-                int duration = (int)days.TotalDays;
-                totalPrice += duration * hotel.Price;
-            }
-            if (flight != null) {
-                totalPrice += flight.Price;
-            }
+            totalPrice = calculateTotalPrice(departureDate, returnDate, hotel, flight, car);
 
-            var booking = new Booking { HotelId = hotelId, FlightId = flightId, TotalPrice = totalPrice };
+            var booking = new Booking { HotelId = hotelId, FlightId = flightId, CarRentalId = carId, TotalPrice = totalPrice };
             ViewBag.Hotel = hotel;
             ViewBag.Flight = flight;
+            ViewBag.CarRental = car;
             ViewBag.DepartureDate = departureDate;
             ViewBag.ReturnDate = returnDate;
             return View(booking);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("StartDate", "EndDate", "HotelId", "FlightId")] Booking booking) {
-            if (ModelState.IsValid) {
+        public IActionResult Create([Bind("StartDate", "EndDate", "HotelId", "FlightId", "CarRentalId")] Booking booking)
+        {
+            if (ModelState.IsValid)
+            {
                 booking.TotalPrice = 0;
 
                 var hotel = _database.Hotels.Find(booking.HotelId);
                 var flight = _database.Flights.Find(booking.FlightId);
-                if (flight == null && hotel == null) {
+                var car = _database.CarRentals.Find(booking.CarRentalId);
+                if (flight == null && hotel == null)
+                {
                     return NotFound();
                 }
 
-                if (hotel != null) {
-                    var days = booking.EndDate - booking.StartDate;
-                    int duration = (int)days.TotalDays;
-                    booking.TotalPrice += duration * hotel.Price;
-                }
-                if (flight != null) {
-                    booking.TotalPrice += flight.Price;
-                }
+                booking.TotalPrice = calculateTotalPrice(booking.StartDate, booking.EndDate, hotel, flight, car);
+
 
                 _database.Bookings.Add(booking);
                 _database.SaveChanges();
@@ -83,11 +84,13 @@ namespace COMP2139_Assignment.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Delete(int id) {
+        public IActionResult Delete(int id)
+        {
 
             var booking = _database.Bookings.Include(b => b.Hotel).FirstOrDefault(b => b.BookingId == id);
 
-            if (booking == null) {
+            if (booking == null)
+            {
                 return NotFound();
             }
 
@@ -96,16 +99,37 @@ namespace COMP2139_Assignment.Controllers {
 
         [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int bookingId) {
+        public IActionResult DeleteConfirmed(int bookingId)
+        {
             var booking = _database.Bookings.Find(bookingId);
 
-            if (booking != null) {
+            if (booking != null)
+            {
                 _database.Bookings.Remove(booking);
                 _database.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
 
             return NotFound();
+        }
+
+        private double calculateTotalPrice(DateTime start, DateTime end, Hotel? hotel, Flight? flight, CarRental? car)
+        {
+            double totalPrice = 0;
+            int duration = (int)(end - start).TotalDays;
+            if (hotel != null)
+            {
+                totalPrice += duration * hotel.Price;
+            }
+            if (flight != null)
+            {
+                totalPrice += flight.Price;
+            }
+            if (car != null)
+            {
+                totalPrice += (double)car.PricePerDay * duration;
+            }
+            return totalPrice;
         }
     }
 }

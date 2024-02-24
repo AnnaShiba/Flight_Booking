@@ -12,7 +12,7 @@
     <div class="mb-4">
         <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2"><i class="fas fa-home"></i> Return to GBC Travel</a>
         <a asp-controller="Flights" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
-           asp-route-returnDate="@ViewBag.ReturnDate" class="btn btn-primary">Skip to Flights</a>
+           asp-route-returnDate="@ViewBag.ReturnDate" class="btn btn-success">Skip Hotel Booking</a>
     </div>
 
     @if (Model.Any())

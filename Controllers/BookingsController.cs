@@ -50,7 +50,7 @@ namespace COMP2139_Assignment.Controllers
             var car = _database.CarRentals.Find(carId);
             if (flight == null && hotel == null && car == null)
             {
-                return NotFound();
+                return View("Error", new ErrorViewModel());
             }
 
             totalPrice = calculateTotalPrice(departureDate, returnDate, hotel, flight, car);

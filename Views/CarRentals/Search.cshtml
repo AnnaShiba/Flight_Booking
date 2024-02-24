@@ -12,11 +12,11 @@
     <form onsubmit="filterCars(event)" class="row g-3 mb-5 align-items-end">
         <div class="col-auto">
             <label for="departureDate" class="form-label">Pick-up Date</label>
-            <input type="date" id="departureDate" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+            <input type="date" id="departureDate" class="form-control" value="@ViewBag.DepartureDate" readonly />
         </div>
         <div class="col-auto">
             <label for="returnDate" class="form-label">Drop-off Date</label>
-            <input type="date" id="returnDate" class="form-control" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" required />
+            <input type="date" id="returnDate" class="form-control" value="@ViewBag.ReturnDate" readonly />
         </div>
         <div class="col-auto">
             <label for="minPrice" class="form-label">Min Price Per Day</label>
@@ -57,7 +57,13 @@
 
     <div class="mb-4">
         <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2"><i class="fas fa-home"></i> Return to GBC Travel</a>
-        <a asp-action="Create" class="btn btn-success">Create New</a>
+
+        @if (ViewBag.FlightId > 0 || ViewBag.HotelId > 0)
+        {
+            <a asp-controller="Bookings" asp-action="Create" asp-route-hotelId="@ViewBag.HotelId" asp-route-departureDate="@ViewBag.DepartureDate"
+               asp-route-returnDate="@ViewBag.ReturnDate" asp-route-flightId="@ViewBag.FlightId" class="btn btn-success">Skip Car Booking</a>
+
+        }
     </div>
 
     <div class="table-responsive">

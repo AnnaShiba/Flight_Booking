@@ -13,6 +13,12 @@
         <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary me-2"><i class="fas fa-home"></i> Return to GBC Travel</a>
     </div>
 
+    <div class="mb-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2"><i class="fas fa-home"></i> Return to GBC Travel</a>
+        <a asp-controller="CarRentals" asp-action="Search" asp-route-destination="@ViewBag.Destination" asp-route-departureDate="@ViewBag.DepartureDate"
+           asp-route-returnDate="@ViewBag.ReturnDate" asp-route-hotelId="@ViewBag.HotelId" class="btn btn-success">Skip Flight Booking</a>
+    </div>
+
     @if (Model.Any())
     {
         <!--<p><strong>@Model.Count</strong> flights found!</p> Replased with a Java Script filter bellow  -->

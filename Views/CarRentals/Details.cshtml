@@ -10,6 +10,7 @@
         <div class="card-body">
             <h3 class="card-title">@Model.Make @Model.Model (@Model.Year)</h3>
             <hr />
+            <img src="@Href("/img/car-" + Model.Id + ".png")" width="512" />
             <dl class="row">
                 <dt class="col-sm-4">Make</dt>
                 <dd class="col-sm-8">@Model.Make</dd>

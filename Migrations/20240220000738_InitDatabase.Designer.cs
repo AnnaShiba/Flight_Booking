@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace COMP2139_Labs.Migrations
+namespace COMP2139_Assignment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240220000738_InitDatabase")]

@@ -1,8 +1,10 @@
 ﻿using COMP2139_Assignment.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace COMP2139_Assignment.Data {
-    public class ApplicationDbContext : DbContext {
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser> {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Hotel> Hotels { get; set; }
@@ -12,6 +14,8 @@ namespace COMP2139_Assignment.Data {
         public DbSet<CarRental> CarRentals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Hotel>().HasData(
                 new Hotel {
                     HotelId = 1,

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace COMP2139_Labs.Migrations
+namespace COMP2139_Assignment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240221033243_CarRentalsInitiation")]
@@ -209,7 +209,7 @@ namespace COMP2139_Labs.Migrations
                         });
                 });
 
-            modelBuilder.Entity("COMP2139_Labs.Models.CarRental", b =>
+            modelBuilder.Entity("COMP2139_Assignment.Models.CarRental", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -374,7 +374,7 @@ namespace COMP2139_Labs.Migrations
                         });
                 });
 
-            modelBuilder.Entity("COMP2139_Labs.Models.Flight", b =>
+            modelBuilder.Entity("COMP2139_Assignment.Models.Flight", b =>
                 {
                     b.Property<int>("FlightId")
                         .ValueGeneratedOnAdd()
@@ -466,7 +466,7 @@ namespace COMP2139_Labs.Migrations
 
             modelBuilder.Entity("COMP2139_Assignment.Models.Booking", b =>
                 {
-                    b.HasOne("COMP2139_Labs.Models.Flight", "Flight")
+                    b.HasOne("COMP2139_Assignment.Models.Flight", "Flight")
                         .WithMany()
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)

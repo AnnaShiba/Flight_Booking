@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace COMP2139_Labs.Migrations
+namespace COMP2139_Assignment.Migrations
 {
     /// <inheritdoc />
     public partial class FixBooking : Migration

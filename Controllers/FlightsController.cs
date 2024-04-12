@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace COMP2139_Labs.Controllers {
+namespace COMP2139_Assignment.Controllers {
     public class FlightsController : Controller {
         private ApplicationDbContext _database;
 

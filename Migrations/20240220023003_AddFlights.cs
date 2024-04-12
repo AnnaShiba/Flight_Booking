@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace COMP2139_Labs.Migrations
+namespace COMP2139_Assignment.Migrations
 {
     /// <inheritdoc />
     public partial class AddFlights : Migration

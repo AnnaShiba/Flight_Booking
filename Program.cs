@@ -1,6 +1,8 @@
 using COMP2139_Assignment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using COMP2139_Assignment.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddSingleton<IEmailSender, EmailSender>(provider => new EmailSender(builder.Configuration.GetValue<string>("Mailgun:key"), builder.Configuration.GetValue<string>("Mailgun:domain")));
 
 var app = builder.Build();
 

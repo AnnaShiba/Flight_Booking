@@ -8,9 +8,11 @@ namespace COMP2139_Assignment.Controllers {
 
         public HomeController(ILogger<HomeController> logger) {
             _logger = logger;
+
         }
 
         public IActionResult Index() {
+            ViewBag.IsAdmin = this.User.IsInRole(Enum.Roles.Admin.ToString());
             return View();
         }
 

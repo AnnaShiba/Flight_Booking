@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<ApplicationUser> SignInManager
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom box-shadow mb-3">
     <div class="container-fluid">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-house"></i> GBC Travel</a>
@@ -33,6 +33,7 @@
                             <button type="submit" class="nav-link btn btn-link text-dark" style="cursor:pointer"><i class="fa fa-sign-out-alt"></i> Logout</button>
                         </form>
                     </li>
+                    @ViewBag.IsAdmin
                 }
                 else {
                     <li class="nav-item">

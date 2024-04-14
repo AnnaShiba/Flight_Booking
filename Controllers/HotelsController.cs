@@ -84,7 +84,23 @@ namespace COMP2139_Assignment.Controllers {
             return RedirectToAction("Index");
         }
 
-        
+        [HttpPost("Hotels/GetHotels")]
+        public async Task<IActionResult> GetHotels(DateTime departureDate, DateTime returnDate, double maxPrice, double reviews, string location) {
+            var query = _database.Hotels.AsQueryable();
+            if (maxPrice > 0) {
+                query = query.Where(h => h.Price < maxPrice);
+            }
+            if (reviews > 0) {
+                query = query.Where(h => h.Reviews > reviews);
+            }
+            if (!string.IsNullOrEmpty(location)) {
+                query = query.Where(h => h.Location.Contains(location));
+            }
+
+            return Json(await query.ToListAsync());
+        }
+
+
         [HttpGet("Hotels/Search")]
         public async Task<IActionResult> Search(string destination, DateTime departureDate, DateTime returnDate, string sort) {
             var query = _database.Hotels.AsQueryable();

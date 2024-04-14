@@ -4,6 +4,7 @@ using COMP2139_Assignment.Data;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP2139_Assignment.Controllers {
     public class HotelsController : Controller {
@@ -25,10 +26,12 @@ namespace COMP2139_Assignment.Controllers {
             return View(hotel);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create() {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Hotel hotel) {
             if (ModelState.IsValid) {
@@ -39,6 +42,7 @@ namespace COMP2139_Assignment.Controllers {
             return View(hotel);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id) {
 
             var project = _database.Hotels.Where(p => p.HotelId == id);
@@ -48,6 +52,7 @@ namespace COMP2139_Assignment.Controllers {
             return View(project.Single());
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Hotel hotel) {
             if (ModelState.IsValid) {
@@ -61,6 +66,7 @@ namespace COMP2139_Assignment.Controllers {
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id) {
 
             var hotel = _database.Hotels.Where(p => p.HotelId == id);
@@ -71,6 +77,7 @@ namespace COMP2139_Assignment.Controllers {
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(Hotel hotel) {
             _database.Hotels.Where(p => p.HotelId == hotel.HotelId).ExecuteDelete();

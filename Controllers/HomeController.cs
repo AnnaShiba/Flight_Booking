@@ -12,7 +12,6 @@ namespace COMP2139_Assignment.Controllers {
         }
 
         public IActionResult Index() {
-            ViewBag.IsAdmin = this.User.IsInRole(Enum.Roles.Admin.ToString());
             return View();
         }
 

@@ -1,5 +1,6 @@
 ﻿using COMP2139_Assignment.Data;
 using COMP2139_Assignment.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace COMP2139_Assignment.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Customer")]
         public IActionResult Index()
         {
             var bookings = _database.Bookings.ToList();
@@ -24,6 +26,7 @@ namespace COMP2139_Assignment.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Customer")]
         public IActionResult Details(int id)
         {
             var booking = _database.Bookings
@@ -41,6 +44,7 @@ namespace COMP2139_Assignment.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Customer")]
         public IActionResult Create(DateTime departureDate, DateTime returnDate, int? hotelId, int? flightId, int? carId)
         {
             double totalPrice = 0;
@@ -64,6 +68,7 @@ namespace COMP2139_Assignment.Controllers
             return View(booking);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin, Customer")]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("StartDate", "EndDate", "HotelId", "FlightId", "CarRentalId")] Booking booking)
         {
@@ -90,6 +95,7 @@ namespace COMP2139_Assignment.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Customer")]
         public IActionResult Delete(int id)
         {
 
@@ -104,6 +110,7 @@ namespace COMP2139_Assignment.Controllers
         }
 
         [HttpPost, ActionName("DeleteConfirmed")]
+        [Authorize(Roles = "Admin, Customer")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int bookingId)
         {

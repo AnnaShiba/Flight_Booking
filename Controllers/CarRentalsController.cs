@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using COMP2139_Assignment.Data;
 using COMP2139_Assignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -19,6 +20,7 @@ namespace COMP2139_Assignment.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.IsAdmin = this.User.IsInRole(Enum.Roles.Admin.ToString());
             return View(await _context.CarRentals.ToListAsync());
         }
 
@@ -36,9 +38,11 @@ namespace COMP2139_Assignment.Controllers
                 return NotFound();
             }
 
+            ViewBag.IsAdmin = this.User.IsInRole(Enum.Roles.Admin.ToString());
             return View(carRental);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -46,6 +50,7 @@ namespace COMP2139_Assignment.Controllers
 
         
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Make,Model,Year,Color,PricePerDay,IsAvailable,AvailableFrom,AvailableUntil")] CarRental carRental)
         {
@@ -58,6 +63,7 @@ namespace COMP2139_Assignment.Controllers
             return View(carRental);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,6 +81,7 @@ namespace COMP2139_Assignment.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Make,Model,Year,Color,PricePerDay,IsAvailable,AvailableFrom,AvailableUntil")] CarRental carRental)
         {
@@ -106,6 +113,7 @@ namespace COMP2139_Assignment.Controllers
             return View(carRental);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,6 +132,7 @@ namespace COMP2139_Assignment.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

@@ -18,6 +18,7 @@ namespace COMP2139_Assignment.Models {
         public int? HotelId { get; set; }
         public int? FlightId { get; set; }
         public int? CarRentalId { get; set; }
+        public string? UserId { get; set; }
 
         // Navigation properties
         public virtual Hotel? Hotel { get; set; }

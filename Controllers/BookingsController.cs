@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace COMP2139_Assignment.Controllers
 {
@@ -21,7 +22,11 @@ namespace COMP2139_Assignment.Controllers
         [Authorize(Roles = "Admin, Customer")]
         public IActionResult Index()
         {
-            var bookings = _database.Bookings.ToList();
+            if (User.IsInRole(Enum.Roles.Admin.ToString())) {
+                return View(_database.Bookings.ToList());
+            }
+
+            var bookings = _database.Bookings.Where(b => b.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value).ToList();
             return View(bookings);
         }
 
@@ -85,7 +90,10 @@ namespace COMP2139_Assignment.Controllers
                 }
 
                 booking.TotalPrice = calculateTotalPrice(booking.StartDate, booking.EndDate, hotel, flight, car);
-
+                var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userClaim != null) {
+                    booking.UserId = userClaim.Value;
+                }
 
                 _database.Bookings.Add(booking);
                 _database.SaveChanges();
